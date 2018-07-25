@@ -8,33 +8,24 @@ import sys
 
 # Complete the longestCommonSubsequence function below.
 def longestCommonSubsequence(a, b):
-    dp = []
-    rdp = []
-    for i in range(len(a)):
-        dpj = []
-        rdpj = []
-        for j in range(len(b)):
-            dpj.append(0)
-            rdpj.append('')
-        dp.append(dpj)
-        rdp.append(rdpj)
-    for i in range(len(a)):
-        rdp[i][0] = str(a[i])
-    for j in range(len(b)):
-        rdp[0][j] = str(b[i])
-    for i in range(1, len(a)):
-        for j in range(1, len(b)):
-            if a[i] == b[j]:
-                dp[i][j] = dp[i-1][j-1] + 1
-                rdp[i][j] = rdp[i-1][j-1] + " " + str(a[i])
+    dp = [[0 for i in range(len(b)+1)] for j in range(len(a)+1)]
+    hx = [['' for i in range(len(b)+1)] for j in range(len(a)+1)]
+    
+    for i, x in enumerate(a):
+        for j, y in enumerate(b):
+            if x == y:
+                dp[i+1][j+1] = dp[i][j] + 1
+                hx[i+1][j+1] = hx[i][j] + ' ' + str(x)
             else:
-                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-                if dp[i][j] == dp[i-1][j]:
-                    rdp[i][j] = rdp[i-1][j]
-                else:
-                    rdp[i][j] = rdp[i][j-1]
-    print(rdp)
-    return dp[len(a)-1][len(b)-1]
+                dp[i+1][j+1] = max(dp[i+1][j], dp[i][j+1])
+                hx[i+1][j+1] = max([hx[i+1][j], hx[i][j+1]], key = lambda x: len(x))
+    result = hx[-1][-1].split(" ")
+    while "" in result:
+        result.remove("")
+    result = list(map(int, result))
+    
+    return result
+
 
 if __name__ == '__main__':
 #    fptr = open(os.environ['OUTPUT_PATH'], 'w')
