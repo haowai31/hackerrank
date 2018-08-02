@@ -10,8 +10,6 @@ import sys
 def kangaroo(x1, v1, x2, v2):
     if (x1-x2) * (v1-v2) > 0:
         return "NO"
-    if (v1 == v2) and (x1 != x2):
-        return "NO"
     time = (x1 - x2) / (v1 - v2)
     if abs(time) * abs(v1 - v2) == abs(x1 - x2):
         return "YES"
