@@ -1,5 +1,6 @@
 #!/bin/python
 
+# Not AC
 import math
 import os
 import random
